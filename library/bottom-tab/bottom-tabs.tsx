@@ -17,6 +17,10 @@ import LogIn from '../../src/login/login.screen';
 import AccountScreen from '../../src/settings/account.screen';
 import AddCourses from '../../src/planner/add-courses.screen';
 import IDisplay from '../text/text.idisplay';
+import CourseCatalog from '../../src/settings/course-catalog';
+import Help from '../../src/settings/help.screen';
+import StudentService from '../../src/settings/ssc.screen';
+import LinkCloud from '../../src/settings/link-cloud.screen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -25,7 +29,7 @@ function TabNavigator() {
 
   const HomeStack = () => {
     return (
-      <Stack.Navigator  >
+      <Stack.Navigator>
          <Stack.Screen name="Home" component={HomeScreen} options={{
           title:"Welcome, An!", 
          headerStyle:{backgroundColor: '#002145'}, 
@@ -60,10 +64,18 @@ function TabNavigator() {
 
   const SettingsStack = () => {
     return (
-      <Stack.Navigator >
+      <Stack.Navigator  >
          <Stack.Screen name= "SettingScreen" component={SettingScreen} options={{title:"Settings", headerStyle: {backgroundColor: '#002145'}, headerTintColor: '#fff',}} />
          <Stack.Screen name= "AccountScreen" component={AccountScreen}
           options={{ title: 'Account', headerStyle: {backgroundColor: '#002145'}, headerTintColor: '#fff',}} />
+          <Stack.Screen name= "CourseCatalog" component={CourseCatalog} 
+          options={{ title: 'Course Catalog', headerStyle: {backgroundColor: '#002145'}, headerTintColor: '#fff',}} />
+          <Stack.Screen name= "Help" component={Help} 
+          options={{ title: 'Help', headerStyle: {backgroundColor: '#002145'}, headerTintColor: '#fff',}} />
+          <Stack.Screen name= "StudentService" component={StudentService} 
+          options={{ title: 'Student Service Center', headerStyle: {backgroundColor: '#002145'}, headerTintColor: '#fff',}} />
+          <Stack.Screen name= "LinkCloud" component={LinkCloud} 
+          options={{ title: 'Link to ICloud', headerStyle: {backgroundColor: '#002145'}, headerTintColor: '#fff',}} />
       </Stack.Navigator>
     )}
 
@@ -72,7 +84,7 @@ function TabNavigator() {
     <>
     <Tab.Navigator
       
-      backBehavior='order'
+      backBehavior='initialRoute'
       screenOptions={{
         headerShown:false,
         tabBarActiveTintColor: 'white',
@@ -106,6 +118,9 @@ function TabNavigator() {
     </>
   )
 }
+
+
+
 
 const styles = StyleSheet.create({
     container: {

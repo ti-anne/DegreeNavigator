@@ -12,13 +12,17 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator();
 const showConfirmDialog = () => {
+
+  const navigation = useNavigation();
   
   
     const logOut = async () => {
         try {
           await AsyncStorage.removeItem(keys.user);
           let value = await AsyncStorage.getItem(keys.user)
-          if (JSON.parse(value) == null) console.log('token removed')
+          if (JSON.parse(value) == null) {
+            console.log('token removed');}
+
         } catch (error) {console.log(error)}
       }
 

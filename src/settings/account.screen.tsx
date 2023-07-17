@@ -10,8 +10,23 @@ import {
   View,
 } from 'react-native';
 import showConfirmDialog from '../../library/buttons/confirm-box';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function AccountScreen() {
+enum keys {user = 'userData'}
+function AccountScreen({navigation}:{navigation:any}) {
+
+  const logOut = async () => {
+    try {
+      await AsyncStorage.removeItem(keys.user);
+      navigation.navigate('LogIn');
+      let value = await AsyncStorage.getItem(keys.user)
+      if (JSON.parse(value) == null) {
+        console.log('token removed');
+      }
+
+    } catch (error) {console.log(error)}
+  }
+
     return (
       <SafeAreaView>
         <ScrollView
@@ -20,14 +35,14 @@ function AccountScreen() {
               <View style = {styles.block}>
                 <Button 
                 title = "Student Service Centre"
-                onPress={()=>Linking.openURL('https://ssc.adm.ubc.ca/sscportal/servlets/SSCMain.jsp')}
+                onPress={()=>navigation.navigate('StudentService')}
                 color = '#002145'
                 />
               </View>
               <View style = {styles.block}>
                 <Button 
                 title = "Link to iCloud"
-                onPress={()=>Linking.openURL('https://www.google.com/')}
+                onPress={()=>navigation.navigate('LinkCloud')}
                 color = '#002145'
                 />
               </View>
@@ -35,7 +50,23 @@ function AccountScreen() {
               <View style = {styles.block}>
                 <Button 
                 title = "Log Out"
-                onPress={() => showConfirmDialog()}
+                onPress={() => {
+                  Alert.alert(
+                    "Log out",
+                    "Are you sure you want to log out?",
+                    [
+                      {
+                        text: "Yes",
+                        onPress: () => {
+                          logOut(); 
+                          console.log('\nlogged out')}
+                      },
+                      {
+                        text: "No",
+                      },
+                    ]
+                  )
+                }}
                 color = '#002145'
                 />
               </View>

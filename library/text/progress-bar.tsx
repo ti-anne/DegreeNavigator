@@ -5,7 +5,7 @@ const ProgressBar = () => {
 
     return (
         <View style={styles.container}>
-            <Text style = {{fontWeight: '600', paddingBottom: 5}}>
+            <Text style = {{fontWeight: '600', paddingBottom: 5, fontSize: 18, color: '#002145'}}>
                 My Progress
             </Text>
             <View style={styles.barContainer}>

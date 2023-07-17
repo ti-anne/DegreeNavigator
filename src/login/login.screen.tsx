@@ -23,7 +23,7 @@ type user = {
   isLoggedIn : boolean,
 }
 
-function LogIn() {
+function LogIn({navigation}:{navigation:any}) {
   const insets = useSafeAreaInsets();
   const [usernameInput, setUsernameInput] = useState('');
   const [passwordInput, setPasswordInput] = useState('');
@@ -63,6 +63,7 @@ function LogIn() {
       isLoggedIn:false
     }
     storeToken(userInput);
+    navigation.navigate('Home')
   }
 
   
@@ -88,13 +89,13 @@ function LogIn() {
         <TextInput
       placeholder="Username"
       autoCapitalize='none'
-      clearButtonMode='while-editing'
+      clearButtonMode='always'
       style={styles.inputSpace}
       onChangeText={setUsernameInput} />
       <TextInput
         placeholder="Password"
         autoCapitalize='none'
-        clearButtonMode='while-editing'
+        clearButtonMode='always'
         style={styles.inputSpace}
         secureTextEntry={true}
         onChangeText={setPasswordInput} />

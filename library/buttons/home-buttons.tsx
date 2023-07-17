@@ -44,15 +44,15 @@ type TitleProps = {
       fontSize: 24,
       alignItems: 'center',
       color: 'white',
-      fontWeight: '400',
+      fontWeight: '500',
     },
     wrapperCustom: {
       display: 'flex',
       margin: 15,
-      borderRadius: 12,
+      borderRadius: 20,
       alignItems: 'center',
       justifyContent: 'center',
-      width: 250,
+      width: 275,
       height: 100,
     },
   });
