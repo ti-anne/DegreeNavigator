@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
 import { Switch } from 'react-native';
-
+import {ColorDark, ColorLight} from '../../theme/colors';
 
 enum keys {
     theme = 'theme',
@@ -9,7 +9,11 @@ enum keys {
     light = 'light-mode'
   }
 
-const ThemeToggle = () => {
+type ToggleProps = {
+    isToggled: (darkMode:boolean) => void
+}
+
+const ThemeToggle = (props: ToggleProps) => {
     const [isEnabled, setIsEnabled] = useState(false);
     const toggleSwitch = () => setIsEnabled(previousState => !previousState);
     
@@ -21,10 +25,12 @@ const ThemeToggle = () => {
         let value = await AsyncStorage.getItem(keys.theme);
         if (value !== keys.dark) {
             AsyncStorage.setItem(keys.theme, keys.dark);
-             console.log('dark mode')}
+             console.log('dark mode')
+             props.isToggled(true)}
         else {
             AsyncStorage.setItem(keys.theme, keys.light);
-             console.log('light mode')}
+             console.log('light mode')
+             props.isToggled(false)}
     }
 
     const getTheme = async () => {
@@ -37,8 +43,8 @@ const ThemeToggle = () => {
 
     return (
         <Switch
-        trackColor={{false: '#767577', true: '#81b0ff'}}
-        thumbColor={isEnabled ? '#fff' : '#fff'}
+        trackColor={{false: ColorDark.accent, true: ColorDark.txt}}
+        thumbColor={isEnabled ? ColorDark.accent : ColorLight.bg}
         ios_backgroundColor="#002145"
         onValueChange={toggleSwitch}
         value={isEnabled}
