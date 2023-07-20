@@ -35,7 +35,7 @@ function LogIn({navigation}:{navigation:any}) {
         user.isLoggedIn = true;
         console.log('\nstore user data ', user, '\n');
         await AsyncStorage.setItem(keys.user, JSON.stringify(user));
-        
+        navigation.navigate('TabBar', {screen:"HomeStack"})
       } catch (error) {console.log(error)}
     } else {Alert.alert('Wrong username or password.\nTry again')}
   }
@@ -63,7 +63,7 @@ function LogIn({navigation}:{navigation:any}) {
       isLoggedIn:false
     }
     storeToken(userInput);
-    navigation.navigate('Home')
+    
   }
 
   

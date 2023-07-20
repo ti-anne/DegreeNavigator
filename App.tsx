@@ -1,5 +1,5 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import {
 
@@ -28,6 +28,7 @@ import LinkCloud from './src/settings/link-cloud.screen';
 import SettingScreen from './src/settings/settings.screen';
 import StudentService from './src/settings/ssc.screen';
 import SplashScreen from './src/login/splash.screen';
+import { ColorDark, ColorLight } from './theme/colors';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -70,9 +71,27 @@ const HomeStack = () => {
 }
 
 const SettingsStack = () => {
+  // const [darkMode, setDarkMode] = useState(false);
+  
+  // useEffect(() => {
+  //   const getTheme = async () => {
+  //     let value = await AsyncStorage.getItem('theme')
+  //     if (value == 'dark-mode') {
+  //       setDarkMode(true);
+  //       console.log('theme set to dark mode')
+  //     } else {
+  //       setDarkMode(false);
+  //       console.log('theme set to light mode')
+  //     }
+  //   }
+  //   getTheme();
+  // }, [darkMode])
   return (
     <Stack.Navigator  >
-      <Stack.Screen name="SettingScreen" component={SettingScreen} options={{ title: "Settings", headerStyle: { backgroundColor: '#002145' }, headerTintColor: '#fff', }} />
+      <Stack.Screen name="SettingScreen" component={SettingScreen} options={{ 
+        title: "Settings", 
+        headerStyle: { backgroundColor: '#002145' }, 
+        headerTintColor: '#fff', }} />
       <Stack.Screen name="AccountScreen" component={AccountScreen}
         options={{ title: 'Account', headerStyle: { backgroundColor: '#002145' }, headerTintColor: '#fff', }} />
       <Stack.Screen name="CourseCatalog" component={CourseCatalog}
@@ -90,6 +109,8 @@ const SettingsStack = () => {
 export default function App() {
 
   const TabBar = () => {
+
+      
     return (
       <Tab.Navigator
 

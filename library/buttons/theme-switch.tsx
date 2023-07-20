@@ -43,8 +43,8 @@ const ThemeToggle = (props: ToggleProps) => {
 
     return (
         <Switch
-        trackColor={{false: ColorDark.accent, true: ColorDark.txt}}
-        thumbColor={isEnabled ? ColorDark.accent : ColorLight.bg}
+        trackColor={{false: ColorDark.switch_bg, true: ColorDark.switch_bg}}
+        thumbColor={isEnabled ? ColorDark.switch_button : ColorLight.switch_button}
         ios_backgroundColor="#002145"
         onValueChange={toggleSwitch}
         value={isEnabled}
