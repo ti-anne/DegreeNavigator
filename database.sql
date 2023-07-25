@@ -34,7 +34,7 @@ ON UPDATE CASCADE ON DELETE RESTRICT
 
 CREATE TABLE `subject` (
 subject_id INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-subj_name VARCHAR(50) NOT NULL,
+subj_name VARCHAR(100) NOT NULL,
 subj_code VARCHAR(50) NOT NULL,
 subj_fac VARCHAR(100) NOT NULL,
 FOREIGN KEY (`subj_fac`) REFERENCES `faculty` (`fac_name`)
@@ -42,22 +42,12 @@ ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
 CREATE TABLE `course` (
-course_id INT UNSIGNED NOT NULL PRIMARY KEY,
+course_id INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+course_code INT UNSIGNED NOT NULL,
 title VARCHAR(50) NOT NULL,
-credits INT UNSIGNED NOT NULL DEFAULT 0,
-course_subj VARCHAR(50) NOT NULL,
-FOREIGN KEY (`course_subj`) REFERENCES `subject` (`subj_code`)
+credits INT UNSIGNED NOT NULL DEFAULT 0
 ) ENGINE=InnoDB;
 
-CREATE TABLE `prereq` (
-course_id INT UNSIGNED NOT NULL,
-prereq_id INT UNSIGNED NOT NULL,
-PRIMARY KEY (`course_id`, `prereq_id`),
-FOREIGN KEY (`course_id`) REFERENCES `course` (`course_id`)
- ON UPDATE CASCADE ON DELETE CASCADE,
- FOREIGN KEY (`prereq_id`) REFERENCES `course` (`course_id`)
- ON UPDATE CASCADE ON DELETE CASCADE
- ) ENGINE=InnoDB;
  
  INSERT INTO `faculty` (fac_name, contact, building) VALUES
  ("Irving K. Barber Faculty of Arts and Social Sciences", "fass.reception.ubco@ubc.ca", "Arts & Sciences Centre"),
@@ -82,7 +72,10 @@ INSERT INTO `subject` (subj_name, subj_code, subj_fac) VALUES
 ("Computer Science", "COSC", "Irving K. Barber Faculty of Science"),
 ("Visual Arts", "VISA", "Faculty of Creative and Critical Studies");
 
-INSERT INTO `course` (course_id, title, credits, course_subj) VALUES 
-(101, "Digital Citizenship", 3, "COSC");
+INSERT INTO `course` (course_code, title, credits) VALUES 
+(101, "Digital Citzenship", 3),
+(111, "Computer Programming I", 3),
+(121, "Computer Programming II", 3);
+
 
 
