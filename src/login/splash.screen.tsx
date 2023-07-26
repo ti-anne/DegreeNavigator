@@ -10,7 +10,6 @@ function SplashScreen({navigation}:{navigation:any}) {
     try {
       const value = await AsyncStorage.getItem('userData');
       if (value !== null) {
-        console.log('parsed data, ', value)
         setIsSignedIn(true)
         console.log('logged in, no login screen');
         navigation.navigate('TabBar')
@@ -23,11 +22,8 @@ function SplashScreen({navigation}:{navigation:any}) {
   }
 
   useEffect(() => {
-    console.log('useEffect ran')
     getUserToken();
   }, [])
-
-  console.log('isSignedIn is', isSignedIn)
 
     return (
       <View style={{ 
