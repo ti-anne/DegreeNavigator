@@ -4,43 +4,51 @@ CREATE DATABASE university;
 USE university;
 
 CREATE TABLE `faculty` (
-	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	id INT NOT NULL AUTO_INCREMENT,
     fac_name VARCHAR(100) NOT NULL,
     contact VARCHAR(100),
     building VARCHAR(50) NOT NULL,
-    UNIQUE KEY `ix_fac_name` (`fac_name`),
     PRIMARY KEY (id)
 ) ENGINE=InnoDB;
 
 CREATE TABLE `department` (
-	id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+	id INT NOT NULL AUTO_INCREMENT,
+    fac_id INT NOT NULL,
     dept_name VARCHAR(100) NOT NULL,
     contact VARCHAR(100) NOT NULL,
-    dept_fac VARCHAR(100) NOT NULL,
-    UNIQUE KEY `ix_dept_name` (`dept_name`),
     PRIMARY KEY (id),
-    FOREIGN KEY (`dept_fac`) REFERENCES `faculty` (`fac_name`)
-	ON UPDATE CASCADE ON DELETE RESTRICT
+    FOREIGN KEY (fac_id) REFERENCES faculty(id)
+	-- ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
 CREATE TABLE `instructor` (
-id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+dept_id INT,
 inst_name VARCHAR(30) NOT NULL,
 contact VARCHAR(50) NOT NULL,
-inst_dept VARCHAR(100) NOT NULL,
-FOREIGN KEY (`inst_dept`) REFERENCES `department` (`dept_name`)
-ON UPDATE CASCADE ON DELETE RESTRICT
+FOREIGN KEY (`dept_id`) REFERENCES `department` (`id`)
+-- ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
 CREATE TABLE `subject` (
-subject_id INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
+id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+fac_id INT,
 subj_name VARCHAR(100) NOT NULL,
 subj_code VARCHAR(50) NOT NULL,
-subj_fac VARCHAR(100) NOT NULL,
-FOREIGN KEY (`subj_fac`) REFERENCES `faculty` (`fac_name`)
+FOREIGN KEY (`fac_id`) REFERENCES `faculty` (`id`)
 ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
+CREATE TABLE `course` (
+id INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+subj_id INT,
+inst_id INT,
+course_name VARCHAR(100) NOT NULL,
+course_code INT NOT NULL,
+FOREIGN KEY (`subj_id`) REFERENCES `subject` (`id`),
+FOREIGN KEY (`inst_id`) REFERENCES `instructor` (`id`)
+-- ON UPDATE CASCADE ON DELETE RESTRICT
+) ENGINE=InnoDB;
 
  
  INSERT INTO `faculty` (fac_name, contact, building) VALUES
@@ -56,16 +64,18 @@ ON UPDATE CASCADE ON DELETE RESTRICT
  ("Faculty of Medicine Southern Medical Program", "smp.information@ubc.ca", "Reichwald Health Sciences Centre"),
  ("College of Graduate Studies", "https://gradstudies.ok.ubc.ca/resources/forms/contact-us/", "Office Modular 2");
  
- INSERT INTO `department` (dept_name, contact, dept_fac) VALUES 
- ("Computer Science", "cmps.okanagan@ubc.ca", "Irving K. Barber Faculty of Science");
+ INSERT INTO `department` (fac_id, dept_name, contact) VALUES 
+ (9, "Computer Science", "cmps.okanagan@ubc.ca");
 
-INSERT INTO `instructor` (inst_name, contact, inst_dept) VALUES 
-("Yong Gao", "", "Computer Science");
+INSERT INTO `instructor` (dept_id, inst_name, contact) VALUES 
+(1, "Yong Gao", "phone");
 
-INSERT INTO `subject` (subj_name, subj_code, subj_fac) VALUES
-("Computer Science", "COSC", "Irving K. Barber Faculty of Science"),
-("Visual Arts", "VISA", "Faculty of Creative and Critical Studies");
+INSERT INTO `subject` (fac_id, subj_name, subj_code) VALUES
+(9, "Computer Science", "COSC"),
+(2, "Visual Arts", "VISA");
 
-ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'MYsqlDB!';
-flush privileges;
+INSERT INTO `course` (subj_id, inst_id, course_name, course_code) VALUES 
+(1, 1, "Software Construction", 210),
+(2, 1, "Digital Media", 106);
 
+select * from faculty;
