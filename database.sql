@@ -41,12 +41,6 @@ FOREIGN KEY (`subj_fac`) REFERENCES `faculty` (`fac_name`)
 ON UPDATE CASCADE ON DELETE RESTRICT
 ) ENGINE=InnoDB;
 
-CREATE TABLE `course` (
-course_id INT UNSIGNED AUTO_INCREMENT NOT NULL PRIMARY KEY,
-course_code INT UNSIGNED NOT NULL,
-title VARCHAR(50) NOT NULL,
-credits INT UNSIGNED NOT NULL DEFAULT 0
-) ENGINE=InnoDB;
 
  
  INSERT INTO `faculty` (fac_name, contact, building) VALUES
@@ -72,10 +66,6 @@ INSERT INTO `subject` (subj_name, subj_code, subj_fac) VALUES
 ("Computer Science", "COSC", "Irving K. Barber Faculty of Science"),
 ("Visual Arts", "VISA", "Faculty of Creative and Critical Studies");
 
-INSERT INTO `course` (course_code, title, credits) VALUES 
-(101, "Digital Citzenship", 3),
-(111, "Computer Programming I", 3),
-(121, "Computer Programming II", 3);
-
-
+ALTER USER 'root' IDENTIFIED WITH mysql_native_password BY 'MYsqlDB!';
+flush privileges;
 
