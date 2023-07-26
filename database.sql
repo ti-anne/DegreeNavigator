@@ -78,4 +78,3 @@ INSERT INTO `course` (subj_id, inst_id, course_name, course_code) VALUES
 (1, 1, "Software Construction", 210),
 (2, 1, "Digital Media", 106);
 
-select * from faculty;
