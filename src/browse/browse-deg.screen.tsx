@@ -1,18 +1,26 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
 import {
   SafeAreaView,
-  ScrollView,
   StyleSheet,
   Text,
-  Pressable,
-  Alert,
   View,
   StatusBar,
   TextInput,
   FlatList
 } from 'react-native';
+import axios from 'axios';
 
+axios({
+  method: 'get',
+  url: `http://localhost:3000/`,
+}).then((response) => {
+  console.log(response.data); 
+}).catch(err => console.log(err))
+
+axios.get(`http://localhost:3000/`).then((response) => {
+  console.log(response.data);
+  console.log('test get axios');
+});
 
 const DATA = [
   {id: '1', title: 'B.Sc - Physics Major'},
